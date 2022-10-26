@@ -94,7 +94,8 @@ def scan(folder: Path):
                 os.rename(fullname_folder, norm_fullname_folder)
                 other_folders.append(norm_fullname_folder)
                 scan(item)
-            scan(item)
+            else:
+                scan(item)
         
         # Робота з файлом
         else:
@@ -106,7 +107,7 @@ def scan(folder: Path):
             os.rename(fullname, norm_fullname)
 
             # переміщення файлів по текам
-            if REGISTER_EXTENSIONS.get(ext):
+            if ext in REGISTER_EXTENSIONS:
                 foldername = REGISTER_EXTENSIONS.get(ext)
                 try:
                     if not os.path.exists("{}{}{}".format(folder_for_scan, os.sep, foldername)):
@@ -130,20 +131,19 @@ def scan(folder: Path):
                 try:
                     container_name = REGISTER_EXTENSIONS[ext]
                     container = container_list[container_name]
-                    EXTENSIONS.add(ext)
-                    container.append(norm_fullname)
                 except KeyError:
                     UNKNOWN.add(ext)
                     others.append(norm_fullname)
+                    continue
+                EXTENSIONS.add(ext)
+                container.append(norm_fullname)
             
             # розпаковка архівів
             if REGISTER_EXTENSIONS.get(ext) == "archives":
                 
                 path_archives = "{}{}{}".format(folder_for_scan, os.sep, foldername)               
                 for item in Path(path_archives).iterdir():
-                    if not ext:
-                        pass
-                    else:
+                    if ext:
                         filename = item
                         print(filename)
                         if not os.path.exists("{}{}{}{}{}".format(folder_for_scan, os.sep, "archives", os.sep, t_name)):
@@ -153,9 +153,8 @@ def scan(folder: Path):
                         shutil.unpack_archive(filename, extract_dir, archive_format)
 
 
-if __name__ == '__main__':
+def start_sort():
 
-    folder_for_scan = sys.argv[1]
     print(f'Start in folder {folder_for_scan}')
 
     scan(Path(folder_for_scan))
@@ -170,5 +169,11 @@ if __name__ == '__main__':
     print(f'video: {video}')
     print(f'Types of files in folder: {EXTENSIONS}')
     print(f'Unknown files of types: {UNKNOWN}')
+
+
+if __name__ == '__main__':
+    folder_for_scan = sys.argv[1]
+    start_sort()
+    
 
     
