@@ -58,6 +58,7 @@ for c, l in zip(CYRILLIC_SYMBOLS, TRANSLATION):
     TRANS[ord(c)] = l
     TRANS[ord(c.upper())] = l.upper()
 
+folder_for_scan = sys.argv[1]
 
 def get_extension(filename: str) -> str:
    
@@ -155,6 +156,7 @@ def scan(folder: Path):
 
 def start_sort():
 
+    folder_for_scan = sys.argv[1]
     print(f'Start in folder {folder_for_scan}')
 
     scan(Path(folder_for_scan))
@@ -172,7 +174,6 @@ def start_sort():
 
 
 if __name__ == '__main__':
-    folder_for_scan = sys.argv[1]
     start_sort()
     
 
