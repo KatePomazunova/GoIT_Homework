@@ -2,18 +2,20 @@ from datetime import date
 
 
 users = [
-{"name": "Maryna", "birthday": date(1990,11,12)},
-{"name": "Olia", "birthday": date(1999,1,6)},
-{"name": "Katya", "birthday": date(2007,11,10)},
-{"name": "Tanya", "birthday": date(2000,11,10)},
-{"name": "Vanya", "birthday": date(2000,11,5)}
-]
+    {"name": "Maryna", "birthday": date(1990,11,12)},
+    {"name": "Olia", "birthday": date(1999,1,6)},
+    {"name": "Katya", "birthday": date(2007,11,10)},
+    {"name": "Tanya", "birthday": date(2000,11,10)},
+    {"name": "Vanya", "birthday": date(2000,11,5)}
+    ]
 
-monday = []
-tuesday = []
-wednesday = []
-thursday = []
-friday = []
+users_list = {
+    "Monday": [],
+    "Tuesday": [],
+    "Wednesday": [],
+    "Thursday": [],
+    "Friday": []
+    }
 
 
 def main():
@@ -22,8 +24,6 @@ def main():
 
     for item in users:
       
-        b_name = item.get("name")
-
         b_day = item.get("birthday")
         b_day = b_day.replace(year=today.year)
 
@@ -39,33 +39,17 @@ def main():
         time_to_birthday = abs(b_day - today)
 
         if time_to_birthday.days < 8:
+            b_day_weekday = b_day.strftime("%A")
+            users_list.get(b_day_weekday).append(item.get("name"))
 
-            if b_day.weekday() == 0:
-                monday.append(b_name)
-            if b_day.weekday() == 1:
-                tuesday.append(b_name)
-            if b_day.weekday() == 2:
-                wednesday.append(b_name)
-            if b_day.weekday() == 3:
-                thursday.append(b_name)
-            if b_day.weekday() == 4:
-                friday.append(b_name)
+    print_users_list(users_list)
+
+
+def print_users_list(users_list: dict):
     
-    if monday:
-        monday_str = ", ".join(monday)
-        print(f'Monday: {monday_str}')
-    if tuesday:
-        tuesday_str = ", ".join(tuesday)
-        print(f'Tuesday: {tuesday_str}')
-    if wednesday:
-        wednesday_str = ", ".join(wednesday)
-        print(f'Wednesday: {wednesday_str}')
-    if thursday:
-        thursday_str = ", ".join(thursday)
-        print(f'Thursday: {thursday_str}')
-    if friday:
-        friday_str = ", ".join(friday)
-        print(f'Friday: {friday_str}')
+    for key, value in users_list.items():
+        if value:
+            print(f"{key}: {', '.join(value)}")
    
 
 if __name__ == "__main__":
