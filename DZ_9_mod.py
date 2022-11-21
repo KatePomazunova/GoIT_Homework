@@ -5,15 +5,32 @@ import re
 contacts = {}  
 
 
+def input_error(funk):
+      
+    def inner(*args,**kwargs):  
+
+        try:
+            return funk(*args,**kwargs)
+        except KeyError: 
+            return "This name does not exist."
+        except IndexError:
+            return "Did not receive a name or number."
+        except:
+            return "Option entered incorrectly."
+
+    return inner
+
+
+@input_error
 def add(text):
 
     phone_number = re.findall(r"\d+", text)[-1]
     phone_name = re.findall(r"[a-z]+", text, flags=re.IGNORECASE)[1].title()
     contacts[phone_name] =  phone_number
-    result = "Number added. Something else?"
-    return result
+    return "Number added. Something else?"
 
 
+@input_error
 def change(text):
     
     phone_number = re.findall(r"\d+", text)[-1]
@@ -24,44 +41,26 @@ def change(text):
     return result
 
 
+@input_error
 def end(text):
 
-    result = "Good bye!"
-    return result
+    return "Good bye!"
     
 
+@input_error
 def hello(text):
 
-    result = "How can I help you?"
-    return result
+    return "How can I help you?"
 
 
-def input_error(funk):
-      
-    def inner(*args,**kwargs):  
-
-        try:
-            funk()
-        except KeyError: 
-            print("This name does not exist.")
-            main()
-        except IndexError:
-            print("Did not receive a name or number.")
-            main()
-        except:
-            print("Option entered incorrectly.")
-            main()
-
-    return inner
-
-
+@input_error
 def phone(text):
     
     phone_name = re.findall(r"[a-z]+", text, flags=re.IGNORECASE)[1].title()
-    result = contacts[phone_name]
-    return result
+    return contacts[phone_name]
 
 
+@input_error
 def show_all(text):
 
     result = ""
@@ -70,7 +69,6 @@ def show_all(text):
     return result.strip()
 
 
-@input_error
 def main():
 
     start = True
