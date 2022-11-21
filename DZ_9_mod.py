@@ -10,7 +10,8 @@ def add(text):
     phone_number = re.findall(r"\d+", text)[-1]
     phone_name = re.findall(r"[a-z]+", text, flags=re.IGNORECASE)[1].title()
     contacts[phone_name] =  phone_number
-    print("Number added. Something else?")
+    result = "Number added. Something else?"
+    return result
 
 
 def change(text):
@@ -19,17 +20,20 @@ def change(text):
     phone_name = re.findall(r"[a-z]+", text, flags=re.IGNORECASE)[1].title()
     old_phone_number = contacts[phone_name] 
     contacts[phone_name] =  phone_number
-    print(f"{phone_name}\'s number {old_phone_number} changed to {phone_number}. Something else?")
+    result = f"{phone_name}\'s number {old_phone_number} changed to {phone_number}. Something else?"
+    return result
 
 
 def end(text):
 
-    print("Good bye!")
+    result = "Good bye!"
+    return result
     
 
 def hello(text):
 
-    print("How can I help you?")
+    result = "How can I help you?"
+    return result
 
 
 def input_error(funk):
@@ -54,12 +58,16 @@ def input_error(funk):
 def phone(text):
     
     phone_name = re.findall(r"[a-z]+", text, flags=re.IGNORECASE)[1].title()
-    print(contacts[phone_name])
+    result = contacts[phone_name]
+    return result
 
 
 def show_all(text):
 
-    print(contacts)
+    result = ""
+    for name, phone in contacts.items():
+        result += f"{name}: {phone}\n"
+    return result.strip()
 
 
 @input_error
@@ -73,11 +81,10 @@ def main():
         entered_text = input()
         
         for key in user_command.keys():
-       
             if bool(re.search(key, entered_text, flags=re.IGNORECASE)):
                 
                 access = True
-                user_command[key](entered_text)
+                print(user_command[key](entered_text))
 
                 if key in ["exit","good bye","close"]:
                     start = False  
@@ -87,7 +94,6 @@ def main():
             print("Option entered incorrectly...")
                
       
-
 user_command = {
     "add": add,
     "change": change,
