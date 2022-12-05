@@ -15,8 +15,8 @@ def input_error(funk):
             return "This name does not exist."
         except IndexError:
             return "Did not receive a name or number."
-        except:
-            return "Option entered incorrectly."
+       # except:
+       #     return "Option entered incorrectly."
 
     return inner
 
@@ -41,7 +41,7 @@ def change(text):
         if name == phone_name:
             old_phone_number = [number.value for number in numbers.phone_numbers]
     record = Record(phone_name)
-    record.change(phone_number)
+    record.change(phone_number, old_phone_number)
     contacts.change_record(record)
     result = f"{phone_name}\'s number {old_phone_number} changed to {phone_number}. Something else?"
     return result

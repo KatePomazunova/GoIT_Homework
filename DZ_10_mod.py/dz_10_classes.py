@@ -4,17 +4,13 @@ from collections import UserDict
 
 class AddressBook(UserDict):
     """Логіка пошуку за записами до цього класу."""
-    
-    def __init__(self):
-        self.data = {}
-        
 
     def add_record(self, record):
-        self.data[record.phone_name.value] = record
+        self.data[record.name.value] = record
 
         
     def change_record(self, record):
-        self.data.update({record.phone_name.value: record})
+        self.data.update({record.name.value: record})
 
 
     def find_contact(self, name):
@@ -46,7 +42,7 @@ class Record:
     та зберігання обов'язкового поля Name."""
     def __init__(self, name):
 
-        self.phone_name = Name(name)
+        self.name = Name(name)
         self.phone_numbers = []
     
 
@@ -55,9 +51,10 @@ class Record:
         self.phone_numbers.append(Phone(phone))
 
 
-    def change(self, phone):
+    def change(self, phone, old_phone):
        
-        self.phone_numbers.append(Phone(phone))
+        self.delete(old_phone)
+        self.add(phone)
 
 
     def delete(self, phone):
