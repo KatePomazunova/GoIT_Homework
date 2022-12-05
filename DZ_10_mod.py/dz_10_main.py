@@ -15,8 +15,8 @@ def input_error(funk):
             return "This name does not exist."
         except IndexError:
             return "Did not receive a name or number."
-       # except:
-       #     return "Option entered incorrectly."
+        except:
+            return "Option entered incorrectly."
 
     return inner
 
