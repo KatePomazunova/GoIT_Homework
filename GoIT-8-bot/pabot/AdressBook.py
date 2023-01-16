@@ -1,5 +1,6 @@
 from collections import UserDict
 from datetime import datetime
+from Interface import ContactsOutput
 import pickle
 import re
 
@@ -79,18 +80,8 @@ class Record:
         
 # вивід усієї доступної інформації про контакт        
     def get_info(self):
-        birthday_info = ''
-        phones_info = [phone.value for phone in self.phones]
-        email_info = ''
-        
-        if self.birthday:
-            birthday_info = f' Birthday: {self.birthday.value}'
-            
-        if self.email:
-            email_info = f' Email: {self.email.value}'
-            
-        return f'{self.name.value} : {", ".join(phones_info)}{birthday_info}{email_info}'
-    
+        return ContactsOutput.output(self)
+
 # розрахунок кількості днів до дня народження контакту            
     def day_to_bithday(self):
         if not self.birthday:

@@ -1,4 +1,5 @@
 from collections import UserDict
+from Interface import NoteOutput
 import pickle
 
 
@@ -25,8 +26,7 @@ class Notes(UserDict):
         return "Note has been deleted.\n"
 
     def show_notes(self, *args):  # Повертає репрезентацію всього словника для виведення на екран
-        tmp = [val for val in self.data.values()]
-        return "".join(list(map(lambda x: str(x), tmp)))
+        return NoteOutput.output(self)
 
     def load_from_file(self):  # Завантаження з диска
         try:
