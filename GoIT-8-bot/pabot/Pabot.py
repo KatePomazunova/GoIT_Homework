@@ -37,8 +37,8 @@ def input_error(func):
             return exception.args[0]
         except IndexError:
             return 'This contac cannot be added, it exists already'
-      #  except TypeError:
-      #      return 'Unknown command or parametrs, please try again.'
+        except TypeError:
+            return 'Unknown command or parametrs, please try again.'
 
     return inner
 
