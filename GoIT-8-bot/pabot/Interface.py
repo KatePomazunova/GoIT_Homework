@@ -35,7 +35,7 @@ class NoteOutput(AllOutput):
 
 class HelpOutput(AllOutput):
     
-    def output(self):
+    def output():
         return '''Command to execute: 
 >>> hello
 >>> help - show commands list

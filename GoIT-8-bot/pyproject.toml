@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "pabot-package"
+version = "0.1.0"
+description = ""
+authors = ["Руслан, Макс Корнієв, Олександр Невський, Катерина Помазунова"]
+readme = "README.md"
+packages = [{include = "pabot_package"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
